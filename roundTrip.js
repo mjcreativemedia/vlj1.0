@@ -24,7 +24,8 @@ $(document).ready(function() {
         minuteIncrement: 15,
         time_24hr: false,
         defaultDate: defaultTime,
-        disableMobile: true
+        disableMobile: true,
+        plugins: [iPadMobileFix()]
     });
     flatpickr("#roundTrip-returnTime", {
         enableTime: true,
@@ -33,7 +34,8 @@ $(document).ready(function() {
         minuteIncrement: 15,
         time_24hr: false,
         defaultDate: defaultTime,
-        disableMobile: true
+        disableMobile: true,
+        plugins: [iPadMobileFix()]
     });
 });
 
