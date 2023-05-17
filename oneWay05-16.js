@@ -1,9 +1,29 @@
 //Beginning of oneWay.js
 
 $(document).ready(function() {
+    console.log('Document ready');
     setDefaultPassengerValues('#oneWay-adults', '#oneWay-children', '#oneWay-infants');
-    $('#oneWay-date').attr('min', getTodayDate());
+
+    // Initialize Flatpickr
+    console.log('Initializing date picker');
+    $("#oneWay-date").flatpickr({
+        minDate: getTodayDate(),
+        defaultDate: getTomorrowDate(),
+        dateFormat: "Y-m-d"
+    });
+
+    console.log('Initializing time picker');
+    $("#oneWay-time").flatpickr({
+    enableTime: true,
+    noCalendar: true,
+    dateFormat: "h:i K",
+    time_24hr: false,
+    minuteIncrement: 15,
+    defaultDate: defaultTime
+    });
 });
+
+
 
 //AIRPORT API FUNCTIONS
 $('#oneWay-departureLocation').on('input', function() {
@@ -46,12 +66,15 @@ $('#oneWay-arrivalLocation').on('input', function() {
   }
 });
 
+//Form Submit
 $('#oneWay-bookingForm').submit(function(e) {
     e.preventDefault();
 
     const departureDateTime = formatDateAndTime($('#oneWay-date').val(), $('#oneWay-time').val());
     const formattedDate = (departureDateTime.getMonth() + 1) + '/' + departureDateTime.getDate() + '/' + departureDateTime.getFullYear();
     const formattedTime = departureDateTime.getHours().toString().padStart(2, '0') + ':' + departureDateTime.getMinutes().toString().padStart(2, '0');
+    console.log('Departure location:', $('#oneWay-departureLocation').val());
+    console.log('Arrival location:', $('#oneWay-arrivalLocation').val());
 
     const data = prepareData(
       '#oneWay-adults',
@@ -121,6 +144,7 @@ $('#oneWay-bookingForm').submit(function(e) {
 
         console.log('Showing #quote div');
         $('#oneWay-quote').show();
+        $('#oneWay-loading-message').text('Your quote is below:');
       },
             function(jqXHR, textStatus, errorThrown) {
   $('#loading').hide();
