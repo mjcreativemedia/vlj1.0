@@ -23,7 +23,7 @@ $(document).ready(function() {
         dateFormat: "h:i K",
         minuteIncrement: 15,
         time_24hr: false,
-        defaultDate: defaultTime
+        defaultDate: defaultTime,
         disableMobile: true
     });
     flatpickr("#roundTrip-returnTime", {
@@ -32,7 +32,7 @@ $(document).ready(function() {
         dateFormat: "h:i K",
         minuteIncrement: 15,
         time_24hr: false,
-        defaultDate: defaultTime
+        defaultDate: defaultTime,
         disableMobile: true
     });
 });
