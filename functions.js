@@ -5,6 +5,27 @@ function setDefaultPassengerValues(adultsSelector, childrenSelector, infantsSele
     $(childrenSelector).val(0);
     $(infantsSelector).val(0);
 }
+// Define the plugin
+function iPadMobileFix() {
+    return function(instance) {
+        return {
+            onParseConfig: function() {
+                if (instance.isMobile) {
+                    return;
+                }
+                if (
+                    window.navigator.userAgent.match(/iPad/i) ||
+                    window.navigator.userAgent.match(/iPhone/i) ||
+                    /iPad|iPhone|iPod/.test(window.navigator.platform) ||
+                    (window.navigator.platform === 'MacIntel' && window.navigator.maxTouchPoints > 1)
+                ) {
+                    instance.isMobile = true;
+                }
+            }
+        };
+    };
+};
+
 function getTomorrowDate() {
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
