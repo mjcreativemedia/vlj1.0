@@ -20,7 +20,8 @@ $(document).ready(function() {
     time_24hr: false,
     minuteIncrement: 15,
     defaultDate: defaultTime,
-    disableMobile: true
+    disableMobile: true,
+    plugins: [iPadMobileFix()]
     });
 });
 
