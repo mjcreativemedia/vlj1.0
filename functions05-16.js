@@ -5,6 +5,14 @@ function setDefaultPassengerValues(adultsSelector, childrenSelector, infantsSele
     $(childrenSelector).val(0);
     $(infantsSelector).val(0);
 }
+function getTomorrowDate() {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const year = tomorrow.getFullYear();
+    const month = (tomorrow.getMonth() + 1).toString().padStart(2, '0');
+    const day = tomorrow.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
 
 function getTodayDate() {
   const today = new Date();
@@ -13,6 +21,10 @@ function getTodayDate() {
   const day = today.getDate().toString().padStart(2, '0');
   return `${year}-${month}-${day}`;
 }
+
+let defaultTime = new Date();
+defaultTime.setHours(9);
+defaultTime.setMinutes(0);
 
 function formatDateAndTime(dateInput, timeInput) {
   const dateTime = new Date(dateInput);
