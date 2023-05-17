@@ -1,17 +1,40 @@
 //Beginning of roundTrip.js
 
 $(document).ready(function() {
+    
     setDefaultPassengerValues('#roundTrip-adults', '#roundTrip-children', '#roundTrip-infants');
-    $('#roundTrip-departureDate').attr('min', getTodayDate());
-    $('#roundTrip-returnDate').attr('min', getTodayDate());
-    // Attach the updateReturnDateMin function to the departure date change event
-    $('#roundTrip-departureDate').on('change', function() {
-    updateReturnDateMin('#roundTrip-departureDate', '#roundTrip-returnDate');});
+    // Initialize the datepickers
+    var departureDatePicker = flatpickr("#roundTrip-departureDate", { 
+        dateFormat: "Y-m-d",
+        minDate: "today",
+        defaultDate: getTomorrowDate(),
+        onChange: function(selectedDates, dateStr, instance) {
+            returnDatePicker.set('minDate', selectedDates[0] || "today");
+        }
+    });
+    var returnDatePicker = flatpickr("#roundTrip-returnDate", { 
+        dateFormat: "Y-m-d",
+        minDate: "today"
+    });
+    // Initialize the timepickers
+    flatpickr("#roundTrip-departureTime", {
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "h:i K",
+        minuteIncrement: 15,
+        time_24hr: false,
+        defaultDate: defaultTime
+    });
+    flatpickr("#roundTrip-returnTime", {
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "h:i K",
+        minuteIncrement: 15,
+        time_24hr: false,
+        defaultDate: defaultTime
+    });
 });
 
-$('#roundTrip-departureDate').on('change', function() {
-  updateReturnDateMin('#roundTrip-departureDate', '#roundTrip-returnDate');
-});
 
 //AIRPORT API FUNCTIONS
 $('#roundTrip-departureLocation').on('input', function() {
@@ -55,7 +78,7 @@ $('#roundTrip-arrivalLocation').on('input', function() {
 });
 
 
-// Handle form submission for round-trip trips
+// Handle form submission for round-trip requests
 $('#roundTrip-bookingForm').submit(function(e) {
     e.preventDefault(); // Prevent form from refreshing the page
 
@@ -154,6 +177,7 @@ $('#roundTrip-bookingForm').submit(function(e) {
 
         // Show the quote div
         $('#roundTrip-quote').show();
+        $('#roundTrip-loading-message').text('Your quote is below:');
 
    }, function(jqXHR, textStatus, errorThrown) {
         $('#loading').hide();
