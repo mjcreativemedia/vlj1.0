@@ -19,7 +19,8 @@ $(document).ready(function() {
     dateFormat: "h:i K",
     time_24hr: false,
     minuteIncrement: 15,
-    defaultDate: defaultTime
+    defaultDate: defaultTime,
+    disableMobile: true
     });
 });
 
